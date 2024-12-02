@@ -1,0 +1,8 @@
+".\Objects\main.obj",
+".\Objects\KEY.obj",
+".\Objects\Delay.obj",
+".\Objects\NixieTube.obj",
+".\Objects\TIME.obj",
+".\Objects\BUZZER.obj" 
+TO ".\Objects\project" 
+PRINT(".\Listings\project.m51") RAMSIZE(256) 

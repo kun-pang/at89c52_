@@ -1,0 +1,73 @@
+C51 COMPILER V9.59.0.0   BUZZER                                                            11/29/2024 17:02:19 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE BUZZER
+OBJECT MODULE PLACED IN .\Objects\BUZZER.obj
+COMPILER INVOKED BY: e:\qianRuShi\Keil_stm32\C51\BIN\C51.EXE BUZZER.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(
+                    -.\Listings\BUZZER.lst) TABS(2) OBJECT(.\Objects\BUZZER.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include <INTRINS.H>
+   3          
+   4          sbit buzzer_BEEP = P2^2;
+   5          
+   6          
+   7          /*******************************************************************************
+   8            * @brief  蜂鸣器私有延时函数 指定延时500ms
+   9            * @param 无
+  10            * @retval 无
+  11          *******************************************************************************/
+  12          void Buzzer_Delay500us(void)  //@12.000MHz
+  13          {
+  14   1        unsigned char data i, j, k;
+  15   1      
+  16   1        _nop_();
+  17   1        _nop_();
+  18   1        i = 23;
+  19   1        j = 205;
+  20   1        k = 120;
+  21   1        do
+  22   1        {
+  23   2          do
+  24   2          {
+  25   3            while (--k);
+  26   3          } while (--j);
+  27   2        } while (--i);
+  28   1      }
+  29          
+  30          
+  31          
+  32          /*******************************************************************************
+  33             * @brief：蜂鸣器发声时间
+  34             * @param：ms 以发声多少时间
+  35             * @retval：无
+  36          *******************************************************************************/
+  37          void Buzzer_Time(unsigned int ms)
+  38          {
+  39   1        unsigned int i;
+  40   1        for(i = 0; i < ms * 2; i++)       //以ms为周期  1/ms为频率    一个for循环为500us（0.5ms）*2  =
+             -》1ms
+  41   1        {
+  42   2          buzzer_BEEP = !buzzer_BEEP;     //翻转  不同频率输出，以此振动
+  43   2          Buzzer_Delay500us();
+  44   2        }
+  45   1        
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     47    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.59.0.0   BUZZER                                                            11/29/2024 17:02:19 PAGE 2   
+
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

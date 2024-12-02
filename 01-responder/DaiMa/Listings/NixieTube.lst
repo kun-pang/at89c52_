@@ -1,0 +1,82 @@
+C51 COMPILER V9.59.0.0   NIXIETUBE                                                         11/29/2024 15:46:08 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE NIXIETUBE
+OBJECT MODULE PLACED IN .\Objects\NixieTube.obj
+COMPILER INVOKED BY: e:\qianRuShi\Keil_stm32\C51\BIN\C51.EXE NixieTube.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRI
+                    -NT(.\Listings\NixieTube.lst) TABS(2) OBJECT(.\Objects\NixieTube.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          unsigned char NixieTube_Nums[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F,0x00,0x40}; //0 1 2 3 4 
+             -5 6 7 8 9 标志位 -
+   4          unsigned char NixieTube_Buf[5]={0,10,10,11,10};     // 0 1 2 3 4  4个数码管，
+   5          
+   6          /*******************************************************************************
+   7            * @brief  共阴极数码管显示
+   8            * @param which 哪一个数码管显示 值范围：1、2、4
+   9            * @param numBer 数码管显示什么数字 值范围：0~9
+  10            * @retval 无
+  11          *******************************************************************************/
+  12          void NixieTube_Show(unsigned char which,unsigned numBer){
+  13   1        switch(which){
+  14   2          case 1:
+  15   2            P2_0 = 0;P2_1 = 1;P2_3=1;P2_5=1;
+  16   2          break;
+  17   2          case 2:
+  18   2            P2_0 = 1;P2_1 = 0;P2_3=1;P2_5=1;
+  19   2          break;
+  20   2          case 3:
+  21   2            P2_0 = 1;P2_1 = 1;P2_3=1;P2_5=0;
+  22   2          break;  
+  23   2          case 4:
+  24   2            P2_0 = 1;P2_1 = 1;P2_3=0;P2_5=1;
+  25   2          break;  
+  26   2          default:
+  27   2            break;
+  28   2          
+  29   2        }
+  30   1        
+  31   1        //亮哪个数字
+  32   1        P0 = NixieTube_Nums[numBer];
+  33   1      }
+  34          
+  35          /*******************************************************************************
+  36            * @brief  设置数码管标志数组
+  37            * @param which 几号数码管 范围：1 2 4
+  38            * @param num 显示什么 范围：0~9 11
+  39            * @retval 
+  40          *******************************************************************************/
+  41          void NixeTube_SetBuf(unsigned char which,unsigned char num){
+  42   1        NixieTube_Buf[which]=num;
+  43   1      }
+  44          
+  45          /*******************************************************************************
+  46            * @brief  用于中断函数，扫描数码管状态
+  47            * @param 无
+  48            * @retval 无
+  49          *******************************************************************************/
+  50          void NixieTube_Time(){
+  51   1        static unsigned char i=1;
+  52   1        NixieTube_Show(i,NixieTube_Buf[i]);
+  53   1        i++;
+C51 COMPILER V9.59.0.0   NIXIETUBE                                                         11/29/2024 15:46:08 PAGE 2   
+
+  54   1        if(i>=5){i=1;}
+  55   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     95    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     18    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

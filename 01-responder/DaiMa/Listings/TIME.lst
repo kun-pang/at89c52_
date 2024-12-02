@@ -1,0 +1,45 @@
+C51 COMPILER V9.59.0.0   TIME                                                              11/29/2024 15:36:21 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE TIME
+OBJECT MODULE PLACED IN .\Objects\TIME.obj
+COMPILER INVOKED BY: e:\qianRuShi\Keil_stm32\C51\BIN\C51.EXE TIME.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\
+                    -Listings\TIME.lst) TABS(2) OBJECT(.\Objects\TIME.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          
+   4          /*******************************************************************************
+   5            * @brief  初始化定时器0 1ms溢出1次
+   6            * @param 无
+   7            * @retval 无
+   8          *******************************************************************************/
+   9          void TIM0_Init(){
+  10   1        EA=1;
+  11   1        ET0=1;
+  12   1        
+  13   1        TMOD&=0xF0;     //定时器0 模式1
+  14   1        TMOD|=0x01;
+  15   1        
+  16   1        TL0 = 0x18;       //设置定时初始值
+  17   1        TH0 = 0xFC;       //设置定时初始值
+  18   1        
+  19   1        TR0=1;
+  20   1        TF0=0;
+  21   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     21    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
